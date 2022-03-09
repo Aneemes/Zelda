@@ -1,6 +1,6 @@
 # game setup
-WIDTH    = 1600
-HEIGTH   = 960
+WIDTH    = 1280
+HEIGTH   = 720
 FPS      = 60
 TILESIZE = 64
  
