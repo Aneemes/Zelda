@@ -6,6 +6,7 @@ from player import Player
 from settings import *
 from debug import debug
 from random import choice
+from weapon import Weapon
 
 class Level:
     def __init__(self):
@@ -19,7 +20,11 @@ class Level:
         # sprite setup
         self.create_map()
 
+        # attack sprites
+        self.current_attack = None
+
     def create_map(self):
+        
         layouts = {
             'boundary': import_csv_layout(r'F:/Projects/Zelda/map/map_FloorBlocks.csv'),
             'grass' :  import_csv_layout(r'F:/Projects/Zelda/map/map_Grass.csv'),
@@ -50,7 +55,15 @@ class Level:
                              
 
         self.player = Player(
-            (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
+            (2000, 1430), [self.visible_sprites], self.obstacle_sprites, self.create_attack, self.destroy_attack)
+
+    def create_attack(self):
+        self.current_attack = Weapon(self.player,[self.visible_sprites])
+
+    def destroy_attack(self):
+        if self.current_attack:
+            self.current_attack.kill()
+        self.create_attack = None
 
     def run(self):
         # update and draw the game
